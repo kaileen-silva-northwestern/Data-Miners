@@ -1,0 +1,214 @@
+{
+	"name": "EvictionNoticesTarget",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "eviction_auto_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "eviction_id",
+				"type": "varchar"
+			},
+			{
+				"name": "file_date",
+				"type": "date"
+			},
+			{
+				"name": "non_payment",
+				"type": "varchar"
+			},
+			{
+				"name": "breach",
+				"type": "varchar"
+			},
+			{
+				"name": "nuisance",
+				"type": "varchar"
+			},
+			{
+				"name": "illegal_use",
+				"type": "varchar"
+			},
+			{
+				"name": "failure_to_sign_renewal",
+				"type": "varchar"
+			},
+			{
+				"name": "access_denial",
+				"type": "varchar"
+			},
+			{
+				"name": "unapproved_subtenant",
+				"type": "varchar"
+			},
+			{
+				"name": "owner_move_in",
+				"type": "varchar"
+			},
+			{
+				"name": "demolition",
+				"type": "varchar"
+			},
+			{
+				"name": "capital_improvement",
+				"type": "varchar"
+			},
+			{
+				"name": "substantial_rehab",
+				"type": "varchar"
+			},
+			{
+				"name": "ellis_act_withdrawal",
+				"type": "varchar"
+			},
+			{
+				"name": "condo_conversion",
+				"type": "varchar"
+			},
+			{
+				"name": "roommate_same_unit",
+				"type": "varchar"
+			},
+			{
+				"name": "other_cause",
+				"type": "varchar"
+			},
+			{
+				"name": "late_payments",
+				"type": "varchar"
+			},
+			{
+				"name": "lead_remediation",
+				"type": "varchar"
+			},
+			{
+				"name": "development",
+				"type": "varchar"
+			},
+			{
+				"name": "good_samaritan_ends",
+				"type": "varchar"
+			},
+			{
+				"name": "constraints_date",
+				"type": "date"
+			},
+			{
+				"name": "address",
+				"type": "varchar"
+			},
+			{
+				"name": "eviction_notice_source_zipcode",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "current_supervisor_districts",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "analysis_neighborhoods",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "city",
+				"type": "varchar"
+			},
+			{
+				"name": "state",
+				"type": "varchar"
+			},
+			{
+				"name": "supervisor_district",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "neighborhoods_analysis_boundaries",
+				"type": "varchar"
+			},
+			{
+				"name": "location",
+				"type": "varchar"
+			},
+			{
+				"name": "shape",
+				"type": "varchar"
+			},
+			{
+				"name": "sf_find_neighborhoods",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "current_police_districts",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "cbd_bid_and_gbd_boundaries_as_of_2017",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "central_market_tenderloin_boundary",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "areas_of_vulnerability_2016",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "central_market_tenderloin_boundary_polygon_updated",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "fix_it_zones_as_of_2018_02_07",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "neighborhoods",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "delete_neighborhoods",
+				"type": "varchar"
+			},
+			{
+				"name": "delete_police_districts",
+				"type": "varchar"
+			},
+			{
+				"name": "delete_supervisor_districts",
+				"type": "varchar"
+			},
+			{
+				"name": "delete_fire_prevention_districts",
+				"type": "varchar"
+			},
+			{
+				"name": "delete_zip_codes",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "EvictionNotices"
+		}
+	}
+}
