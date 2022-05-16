@@ -1,0 +1,204 @@
+{
+	"name": "EvictionNoticesSource",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "InputBlob",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Eviction_Notices.csv",
+				"container": "input"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Eviction ID",
+				"type": "String"
+			},
+			{
+				"name": "Address",
+				"type": "String"
+			},
+			{
+				"name": "City",
+				"type": "String"
+			},
+			{
+				"name": "State",
+				"type": "String"
+			},
+			{
+				"name": "Eviction Notice Source Zipcode",
+				"type": "String"
+			},
+			{
+				"name": "File Date",
+				"type": "String"
+			},
+			{
+				"name": "Non Payment",
+				"type": "String"
+			},
+			{
+				"name": "Breach",
+				"type": "String"
+			},
+			{
+				"name": "Nuisance",
+				"type": "String"
+			},
+			{
+				"name": "Illegal Use",
+				"type": "String"
+			},
+			{
+				"name": "Failure to Sign Renewal",
+				"type": "String"
+			},
+			{
+				"name": "Access Denial",
+				"type": "String"
+			},
+			{
+				"name": "Unapproved Subtenant",
+				"type": "String"
+			},
+			{
+				"name": "Owner Move In",
+				"type": "String"
+			},
+			{
+				"name": "Demolition",
+				"type": "String"
+			},
+			{
+				"name": "Capital Improvement",
+				"type": "String"
+			},
+			{
+				"name": "Substantial Rehab",
+				"type": "String"
+			},
+			{
+				"name": "Ellis Act WithDrawal",
+				"type": "String"
+			},
+			{
+				"name": "Condo Conversion",
+				"type": "String"
+			},
+			{
+				"name": "Roommate Same Unit",
+				"type": "String"
+			},
+			{
+				"name": "Other Cause",
+				"type": "String"
+			},
+			{
+				"name": "Late Payments",
+				"type": "String"
+			},
+			{
+				"name": "Lead Remediation",
+				"type": "String"
+			},
+			{
+				"name": "Development",
+				"type": "String"
+			},
+			{
+				"name": "Good Samaritan Ends",
+				"type": "String"
+			},
+			{
+				"name": "Constraints Date",
+				"type": "String"
+			},
+			{
+				"name": "Supervisor District",
+				"type": "String"
+			},
+			{
+				"name": "Neighborhoods - Analysis Boundaries",
+				"type": "String"
+			},
+			{
+				"name": "Location",
+				"type": "String"
+			},
+			{
+				"name": "Shape",
+				"type": "String"
+			},
+			{
+				"name": "SF Find Neighborhoods",
+				"type": "String"
+			},
+			{
+				"name": "Current Police Districts",
+				"type": "String"
+			},
+			{
+				"name": "Current Supervisor Districts",
+				"type": "String"
+			},
+			{
+				"name": "Analysis Neighborhoods",
+				"type": "String"
+			},
+			{
+				"name": "DELETE - Neighborhoods",
+				"type": "String"
+			},
+			{
+				"name": "DELETE - Police Districts",
+				"type": "String"
+			},
+			{
+				"name": "DELETE - Supervisor Districts",
+				"type": "String"
+			},
+			{
+				"name": "DELETE - Fire Prevention Districts",
+				"type": "String"
+			},
+			{
+				"name": "DELETE - Zip Codes",
+				"type": "String"
+			},
+			{
+				"name": "CBD, BID and GBD Boundaries as of 2017",
+				"type": "String"
+			},
+			{
+				"name": "Central Market/Tenderloin Boundary",
+				"type": "String"
+			},
+			{
+				"name": "Areas of Vulnerability, 2016",
+				"type": "String"
+			},
+			{
+				"name": "Central Market/Tenderloin Boundary Polygon - Updated",
+				"type": "String"
+			},
+			{
+				"name": "Fix It Zones as of 2018-02-07",
+				"type": "String"
+			},
+			{
+				"name": "Neighborhoods",
+				"type": "String"
+			}
+		]
+	}
+}

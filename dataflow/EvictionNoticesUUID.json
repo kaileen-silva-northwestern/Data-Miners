@@ -1,0 +1,81 @@
+{
+	"name": "EvictionNoticesUUID",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "EvictionNoticesSource",
+						"type": "DatasetReference"
+					},
+					"name": "EvictionNotices"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "surrogateKey1"
+				}
+			],
+			"scriptLines": [
+				"parameters{",
+				"     evictions_uuid as string (uuid())",
+				"}",
+				"source(output(",
+				"          {Eviction ID} as string,",
+				"          Address as string,",
+				"          City as string,",
+				"          State as string,",
+				"          {Eviction Notice Source Zipcode} as string,",
+				"          {File Date} as string,",
+				"          {Non Payment} as string,",
+				"          Breach as string,",
+				"          Nuisance as string,",
+				"          {Illegal Use} as string,",
+				"          {Failure to Sign Renewal} as string,",
+				"          {Access Denial} as string,",
+				"          {Unapproved Subtenant} as string,",
+				"          {Owner Move In} as string,",
+				"          Demolition as string,",
+				"          {Capital Improvement} as string,",
+				"          {Substantial Rehab} as string,",
+				"          {Ellis Act WithDrawal} as string,",
+				"          {Condo Conversion} as string,",
+				"          {Roommate Same Unit} as string,",
+				"          {Other Cause} as string,",
+				"          {Late Payments} as string,",
+				"          {Lead Remediation} as string,",
+				"          Development as string,",
+				"          {Good Samaritan Ends} as string,",
+				"          {Constraints Date} as string,",
+				"          {Supervisor District} as string,",
+				"          {Neighborhoods - Analysis Boundaries} as string,",
+				"          Location as string,",
+				"          Shape as string,",
+				"          {SF Find Neighborhoods} as string,",
+				"          {Current Police Districts} as string,",
+				"          {Current Supervisor Districts} as string,",
+				"          {Analysis Neighborhoods} as string,",
+				"          {DELETE - Neighborhoods} as string,",
+				"          {DELETE - Police Districts} as string,",
+				"          {DELETE - Supervisor Districts} as string,",
+				"          {DELETE - Fire Prevention Districts} as string,",
+				"          {DELETE - Zip Codes} as string,",
+				"          {CBD, BID and GBD Boundaries as of 2017} as string,",
+				"          {Central Market/Tenderloin Boundary} as string,",
+				"          {Areas of Vulnerability, 2016} as string,",
+				"          {Central Market/Tenderloin Boundary Polygon - Updated} as string,",
+				"          {Fix It Zones as of 2018-02-07} as string,",
+				"          Neighborhoods as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> EvictionNotices",
+				"EvictionNotices keyGenerate(output(EvictionNotices_Auto_ID as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> surrogateKey1"
+			]
+		}
+	}
+}
