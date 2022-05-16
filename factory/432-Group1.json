@@ -1,9 +1,0 @@
-{
-	"name": "432-Group1",
-	"location": "eastus",
-	"identity": {
-		"type": "SystemAssigned",
-		"principalId": "53379c83-05f5-425e-b309-ef6ed6c00d50",
-		"tenantId": "7d76d361-8277-4708-a477-64e8366cd1bc"
-	}
-}
