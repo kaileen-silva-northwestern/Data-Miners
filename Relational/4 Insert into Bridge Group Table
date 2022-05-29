@@ -1,0 +1,75 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[CREATE_TEMP_BRIDGEREASON]
+AS
+BEGIN
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[temp_reason_final]') AND type in (N'U'))
+DROP TABLE [dbo].[temp_reason_final]
+
+SELECT 
+	ROW_NUMBER() OVER(ORDER BY concat_reason) as group_key,
+	VALUE as reason_array,
+	concat_reason
+
+INTO temp_reason_final
+
+FROM
+
+(SELECT DISTINCT
+
+LEFT(
+	(CASE WHEN concat_reason = '' THEN 'Unknown|' ELSE concat_reason END)
+,DATALENGTH((CASE WHEN concat_reason = '' THEN 'Unknown|' ELSE concat_reason END))
+-1) 
+
+as concat_reason
+
+FROM (
+
+SELECT
+	eviction_id,
+	CASE WHEN non_payment = 'true' THEN 'non_payment|' ELSE '' END +
+	CASE WHEN breach = 'true' THEN 'breach|' ELSE '' END +
+	CASE WHEN nuisance = 'true' THEN 'nuisance|' ELSE '' END +
+	CASE WHEN illegal_use = 'true' THEN 'illegal_use|' ELSE '' END +
+	CASE WHEN failure_to_sign_renewal = 'true' THEN 'failure_to_sign_renewal|' ELSE '' END +
+	CASE WHEN access_denial = 'true' THEN 'access_denial|' ELSE '' END +
+	CASE WHEN unapproved_subtenant = 'true' THEN 'unapproved_subtenant|' ELSE '' END +
+	CASE WHEN owner_move_in = 'true' THEN 'owner_move_in|' ELSE '' END +
+	CASE WHEN demolition = 'true' THEN 'demolition|' ELSE '' END +
+	CASE WHEN capital_improvement = 'true' THEN 'capital_improvement|' ELSE '' END +
+	CASE WHEN substantial_rehab = 'true' THEN 'substantial_rehab|' ELSE '' END +
+	CASE WHEN ellis_act_withdrawal = 'true' THEN 'ellis_act_withdrawal|' ELSE '' END +
+	CASE WHEN condo_conversion = 'true' THEN 'condo_conversion|' ELSE '' END +
+	CASE WHEN roommate_same_unit = 'true' THEN 'roommate_same_unit|' ELSE '' END +
+	CASE WHEN other_cause = 'true' THEN 'other_cause|' ELSE '' END +
+	CASE WHEN late_payments = 'true' THEN 'late_payments|' ELSE '' END +
+	CASE WHEN lead_remediation = 'true' THEN 'lead_remediation|' ELSE '' END +
+	CASE WHEN development = 'true' THEN 'development|' ELSE '' END +
+	CASE WHEN good_samaritan_ends = 'true' THEN 'good_samaritan_ends|' ELSE '' END
+as concat_reason
+FROM dbo.Rel_Eviction_Notices
+) temp_reason ) temp_reason_final
+
+CROSS APPLY STRING_SPLIT(concat_reason, '|');
+
+
+
+INSERT INTO staging_br_reason_group (reason_group_key, reason_key)
+SELECT DISTINCT
+	group_key as reason_group_key,
+	reason_key
+FROM (SELECT group_key, reason_array as unpivoted_reason
+FROM temp_reason_final
+CROSS APPLY STRING_SPLIT(concat_reason, '|')) grp
+
+JOIN staging_dim_Reason r ON r.reason_code = grp.unpivoted_reason;
+	
+
+
+END
+GO

@@ -1,0 +1,75 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[CREATE_REASON_TABLES]
+AS
+BEGIN
+
+CREATE TABLE staging_dim_reason (
+	reason_key INT PRIMARY KEY IDENTITY (1,1),
+	reason_code varchar (255),
+	reason_desc varchar (255)
+);
+
+
+CREATE TABLE staging_br_reason_group (
+	reason_group_key INT,
+	reason_key INT
+);
+
+
+CREATE TABLE prod_dim_reason (
+	reason_key INT PRIMARY KEY IDENTITY (1,1),
+	reason_code varchar (255),
+	reason_desc varchar (255)
+);
+
+
+CREATE TABLE prod_br_reason_group (
+	reason_group_key INT,
+	reason_key INT
+);
+
+
+CREATE TABLE temp_reason_final (
+	group_key INT,
+	reason_array varchar(1000),
+	concat_reason varchar(1000)
+);
+
+CREATE TABLE temp_reason_group (
+	eviction_id INT,
+	reason_group_key INT
+);
+
+
+SET IDENTITY_INSERT staging_dim_reason ON
+
+INSERT INTO staging_dim_reason (reason_key, reason_code, reason_desc)
+VALUES (-1, 'Unknown', 'Unknown');
+
+INSERT INTO staging_dim_reason (reason_code, reason_desc)
+VALUES 	('non_payment', 'Non-Payment'),
+	('breach', 'Breach'),
+	('nuisance', 'Nuisance'),
+	('illegal_use', 'Illegal Use'),
+	('failure_to_sign_renewal', 'Failure to Sign Renewal'),
+	('access_denial', 'Access Denial'),
+	('unapproved_subtenant', 'Unapproved Subtenant'),
+	('owner_move_in', 'Owner Move-In'),
+	('demolition', 'Demolition'),
+	('capital_improvement', 'Capital Improvement'),
+	('substantial_rehab', 'Substantial Rehab'),
+	('ellis_act_withdrawal', 'Ellis Act Withdrawal'),
+	('condo_conversion', 'Condo Conversion'),
+	('roommate_same_unit', 'Roommate Same Unit'),
+	('other_cause', 'Other Cause'),
+	('late_payments', 'Late Payments'),
+	('lead_remediation', 'Lead Remediation'),
+	('development', 'Development'),
+	('good_samaritan_ends', 'Good Samaritan Ends');
+
+
+END
+GO
