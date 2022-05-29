@@ -1,0 +1,18 @@
+
+
+
+SELECT 
+	f.eviction_id as eviction_key,
+	l.location_id as location_key,
+	COALESCE(reason_group_key, -1) as reason_group_key,
+	COALESCE(dt1.date_key, 8184) as file_date_key,
+	l.zipcode as zipcode
+FROM Rel_Eviction_Notices f
+LEFT JOIN temp_reason_group r ON f.eviction_id = r.eviction_id
+LEFT JOIN Rel_Location l 
+	ON f.location_id = l.location_id
+LEFT JOIN DIM_Date dt1 
+    ON COALESCE(f.file_date, CONVERT(date,'1899-01-01')) = dt1.date
+
+
+
