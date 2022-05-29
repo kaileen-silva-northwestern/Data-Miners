@@ -1,0 +1,68 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[INSERT_DIM_DATE]
+AS
+BEGIN
+
+WITH CTE_DatesTable
+AS
+(
+  SELECT CAST('20000101' as datetime) AS [date]
+  UNION ALL
+  SELECT DATEADD(dd, 1, [date])
+  FROM CTE_DatesTable
+  WHERE DATEADD(dd, 1, [date]) <= GETDATE()
+)
+
+INSERT INTO DIM_Date (
+[Date]
+,[DayName]
+,[DayOfWeek]
+,[Month]
+,[MonthName]
+,[MonthYear]
+,[Year]
+,[YearMonth]
+)
+
+SELECT 
+[date]
+,DATENAME(WEEKDAY,[date]) AS DayName
+,DATEPART(WEEKDAY, [date]) AS DayOfWeek
+,DATEPART(MONTH, [date]) AS Month
+,DATENAME(MONTH,[date]) AS MonthName
+,LEFT(DATENAME(MONTH,[date]),3) + '-' + CONVERT(nvarchar,DATEPART(YEAR,[date])) as MonthYear
+,DATEPART(YEAR,[date]) AS Year
+,CONVERT(nvarchar(6), [date], 112) AS YearMonth
+FROM CTE_DatesTable
+OPTION (MAXRECURSION 0);
+
+
+-----Add value for nulls
+INSERT INTO DIM_Date (
+[Date]
+,[DayName]
+,[DayOfWeek]
+,[Month]
+,[MonthName]
+,[MonthYear]
+,[Year]
+,[YearMonth]
+)
+VALUES(
+CONVERT(date,'1899-01-01')
+,'Monday'
+,2
+,1
+,'January'
+,'Jan-1899'
+,1899
+,189901
+)
+
+
+
+END
+GO
