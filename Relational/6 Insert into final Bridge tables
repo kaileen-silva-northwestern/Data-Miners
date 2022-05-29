@@ -22,6 +22,8 @@ INSERT INTO prod_br_reason_group (reason_group_key, reason_key)
 SELECT reason_group_key, reason_key
 FROM staging_br_reason_group;
 
+ INSERT INTO prod_br_reason_group
+ VALUES (-1,-1)
 
 
 END
