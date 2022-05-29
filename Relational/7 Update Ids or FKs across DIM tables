@@ -1,0 +1,95 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[UPDATE_IDS]
+AS
+BEGIN
+
+
+-----update location id in Eviction Notices
+update a
+set a.location_id = c.location_id
+from Rel_Eviction_Notices a
+    inner join SF_Eviction_Notices_Raw b on
+        a.eviction_id = b.eviction_id
+    inner join Rel_Location c on
+        b.address = c.block_level_address
+
+-----update location id in Eviction Notices using recursive function for spaces
+update a
+set a.location_id = c.location_id
+from Rel_Eviction_Notices a
+    inner join SF_Eviction_Notices_Raw b on
+        a.eviction_id = b.eviction_id
+    inner join Rel_Location c on
+        dbo.RemoveSpace(b.address) = c.block_level_address
+
+
+----Insert unknown fields into location table
+
+INSERT INTO Rel_Location (
+[block_level_address]
+    ,[zipcode]
+    ,[city]
+    ,[state]
+    ,[supervisor_district]
+    ,[demographic_id]
+    ,[location]
+    ,[shape]
+)
+
+VALUES (
+'Unkown'
+,00000
+,'Unkown'
+,'UK'
+,'0'
+,NULL
+,NULL
+,NULL
+)
+
+-----Update Evictions table ID's with unkown where NULL
+
+UPDATE Rel_Eviction_Notices
+SET location_id = 'bed3843e-9a45-4a33-b0b3-e074ed9c55f5'
+WHERE location_id is NULL
+
+
+
+-----update demographic id in Location
+update a
+set a.demographic_id = b.demographic_id
+from Rel_Location a
+    inner join Rel_Demographics b on
+        a.zipcode = b.zipcode
+
+
+----Insert unknown fields into demographics table
+
+INSERT INTO Rel_Demographics (
+[median_household_income]
+    ,[population]
+    ,[zipcode]
+    ,[avg_population_age]
+    ,[people_per_sq_mile]
+)
+
+VALUES (
+NULL
+,NULL
+,'00000'
+,NULL
+,NULL
+)
+
+
+-----Update LOCATION table ID's with unkown where NULL
+
+UPDATE Rel_Location
+SET demographic_id = '0492587e-952a-4522-916f-0c6dda0e69c6'
+WHERE demographic_id is NULL
+
+END
+GO

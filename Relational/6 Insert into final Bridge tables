@@ -1,0 +1,28 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[INSERT_FINAL_TABLES]
+AS
+BEGIN
+
+
+SET IDENTITY_INSERT staging_dim_reason OFF
+
+SET IDENTITY_INSERT prod_dim_reason ON
+
+
+--1. DIM EVICTION REASON
+INSERT INTO prod_dim_reason (reason_key, reason_code, reason_desc)
+SELECT reason_key, reason_code, reason_desc
+FROM staging_dim_reason;
+
+--2. BRIDGE TABLE
+INSERT INTO prod_br_reason_group (reason_group_key, reason_key)
+SELECT reason_group_key, reason_key
+FROM staging_br_reason_group;
+
+
+
+END
+GO
