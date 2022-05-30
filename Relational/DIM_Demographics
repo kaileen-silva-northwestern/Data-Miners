@@ -1,0 +1,7 @@
+SELECT [demographic_id]
+      ,[median_household_income]
+      ,[population]
+      ,[zipcode]
+      ,[avg_population_age]
+      ,[people_per_sq_mile]
+  FROM [dbo].[Rel_Demographics]

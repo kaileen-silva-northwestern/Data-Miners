@@ -1,0 +1,3 @@
+SELECT [reason_group_key]
+      ,[reason_key]
+  FROM [dbo].[prod_br_reason_group]

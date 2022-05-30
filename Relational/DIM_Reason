@@ -1,0 +1,4 @@
+SELECT [reason_key]
+      ,[reason_code]
+      ,[reason_desc]
+  FROM [dbo].[prod_dim_reason]
